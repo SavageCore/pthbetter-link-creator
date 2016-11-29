@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pthbetter Link Creator
 // @namespace    http://savagecore.eu/
-// @version      0.1.8
+// @version      0.1.9
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
@@ -36,7 +36,7 @@
 			for (var i = 0; i < alltorrents.length; i++) {
 				if (linkregex.exec(alltorrents[i])) {
 					var torrentGroup = query.id;
-					var torrentID = query.torrentid;
+					var torrentID = RegExp.$1;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
 						createlink(alltorrents[i]);
