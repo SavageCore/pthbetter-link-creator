@@ -30,66 +30,66 @@
 	}
 
 	switch (window.location.href) {
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?id/) || {}).input:
-			var query = getQueryParams(document.location.search);
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?id/) || {}).input:
+		var query = getQueryParams(document.location.search);
 
-			for (var i = 0; i < alltorrents.length; i++) {
-				if (linkregex.exec(alltorrents[i])) {
-					var torrentGroup = query.id;
-					var torrentID = RegExp.$1;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
-						createlink(alltorrents[i]);
-					}
+		for (var i = 0; i < alltorrents.length; i++) {
+			if (linkregex.exec(alltorrents[i])) {
+				var torrentGroup = query.id;
+				var torrentID = RegExp.$1;
+				var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+				if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
+					createlink(alltorrents[i]);
 				}
 			}
-			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=perfectflac/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=seeding/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=leeching/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=snatched/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
-					}
-				}
-			}
-			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/better.php\?method/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+		}
+		break;
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=perfectflac/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=seeding/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=leeching/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=snatched/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded/) || {}).input:
+		for (var i = 0; i < alltorrents.length; i++) {
+			var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			if (torrentRegex.exec(alltorrents[i])) {
+				var torrentGroup = RegExp.$1;
+				var torrentID = RegExp.$2;
+				var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+				if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
 					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
 				}
 			}
-			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/artist.php/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/collages.php\?id/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
-					}
+		}
+		break;
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/better.php\?method/) || {}).input:
+		for (var i = 0; i < alltorrents.length; i++) {
+			var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			if (torrentRegex.exec(alltorrents[i])) {
+				var torrentGroup = RegExp.$1;
+				var torrentID = RegExp.$2;
+				var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+				createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+			}
+		}
+		break;
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/artist.php/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/collages.php\?id/) || {}).input:
+	case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php/) || {}).input:
+		for (var i = 0; i < alltorrents.length; i++) {
+			var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			if (torrentRegex.exec(alltorrents[i])) {
+				var torrentGroup = RegExp.$1;
+				var torrentID = RegExp.$2;
+				var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+				if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
+					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
 				}
 			}
-			break;
-		default:
-			break;
+		}
+		break;
+	default:
+		break;
 	}
 
 	function createlink(linkelement) {
