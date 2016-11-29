@@ -5,10 +5,10 @@
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
-// @match        https://passtheheadphones.me/artist.php*
-// @match        https://passtheheadphones.me/better.php*
-// @match        https://passtheheadphones.me/collages.php*
-// @match        https://passtheheadphones.me/torrents.php*
+// @include      http*://passtheheadphones.me/artist.php*
+// @include 	   http*://passtheheadphones.me/better.php*
+// @include 	   http*://passtheheadphones.me/collages.php*
+// @include 	   http*://passtheheadphones.me/torrents.php*
 
 // @downloadURL	 https://github.com/SavageCore/pthbetter-link-creator/raw/master/src/pthbetter-link-creator.user.js
 // @grant        GM_setClipboard
