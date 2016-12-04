@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PTH pthbetter Link Creator
 // @namespace    http://savagecore.eu/
-// @version      0.1.10
+// @version      0.1.11
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
