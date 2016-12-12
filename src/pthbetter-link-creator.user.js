@@ -10,11 +10,16 @@
 // @include    http*://passtheheadphones.me/collages.php*
 // @include    http*://passtheheadphones.me/torrents.php*
 
+// @include    http*://apollo.rip/artist.php*
+// @include    http*://apollo.rip/better.php*
+// @include    http*://apollo.rip/collages.php*
+// @include    http*://apollo.rip/torrents.php*
+
 // @downloadURL	 https://github.com/SavageCore/pthbetter-link-creator/raw/master/src/pthbetter-link-creator.user.js
 // @grant        GM_setClipboard
 // ==/UserScript==
 
-/*	global document, window, GM_setClipboard	*/
+/*	global document, window, GM_setClipboard, location	*/
 
 (function () {
 	'use strict';
@@ -30,7 +35,7 @@
 	}
 
 	switch (window.location.href) {
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?id/) || {}).input:
+		case (window.location.href.match(/\/torrents.php\?id/) || {}).input:
 			var query = getQueryParams(document.location.search);
 
 			for (var i = 0; i < alltorrents.length; i++) {
@@ -44,12 +49,12 @@
 				}
 			}
 			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded.*?&filter=perfectflac/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=seeding/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=leeching/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=snatched/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php\?type=uploaded/) || {}).input:
+		case (window.location.href.match(/\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
+		case (window.location.href.match(/\?type=uploaded.*?&filter=perfectflac/) || {}).input:
+		case (window.location.href.match(/\?type=seeding/) || {}).input:
+		case (window.location.href.match(/\?type=leeching/) || {}).input:
+		case (window.location.href.match(/\?type=snatched/) || {}).input:
+		case (window.location.href.match(/\?type=uploaded/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
@@ -62,7 +67,7 @@
 				}
 			}
 			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/better.php\?method/) || {}).input:
+		case (window.location.href.match(/\/better.php\?method/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
@@ -73,9 +78,9 @@
 				}
 			}
 			break;
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/artist.php/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/collages.php\?id/) || {}).input:
-		case (window.location.href.match(/http[s]?:\/\/passtheheadphones.me\/torrents.php/) || {}).input:
+		case (window.location.href.match(/\/artist.php/) || {}).input:
+		case (window.location.href.match(/\/collages.php\?id/) || {}).input:
+		case (window.location.href.match(/\/torrents.php/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
@@ -109,7 +114,16 @@
 			link.firstChild.style['text-decoration'] = 'none';
 			link.firstChild.style.cursor = 'inherit';
 		};
-		var str = 'python pthbetter ' + url;
+		switch (location.hostname) {
+			case 'apollo.rip':
+				var str = 'xanaxbetter ' + url;
+				break;
+			case 'passtheheadphones.me':
+				str = 'pthbetter ' + url;
+				break;
+			default:
+				str = 'pthbetter ' + url;
+		}
 
 		link.addEventListener('click', function () {
 			GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
