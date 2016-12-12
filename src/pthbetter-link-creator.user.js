@@ -25,7 +25,7 @@
 	'use strict';
 
 	var devider = ' | ';
-	var linkregex = /torrents.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=[a-z0-9]*"/i;
+	var linkregex = /torrents.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=.*/i;
 
 	var baseURL = window.location.origin;
 
@@ -39,7 +39,7 @@
 			var query = getQueryParams(document.location.search);
 
 			for (var i = 0; i < alltorrents.length; i++) {
-				if (linkregex.exec(alltorrents[i].outerHTML)) {
+				if (linkregex.exec(alltorrents[i])) {
 					var torrentGroup = query.id;
 					var torrentID = RegExp.$1;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
@@ -57,7 +57,7 @@
 		case (window.location.href.match(/\?type=uploaded/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i].outerHTML)) {
+				if (torrentRegex.exec(alltorrents[i])) {
 					var torrentGroup = RegExp.$1;
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
@@ -70,7 +70,7 @@
 		case (window.location.href.match(/\/better.php\?method/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i].outerHTML)) {
+				if (torrentRegex.exec(alltorrents[i])) {
 					var torrentGroup = RegExp.$1;
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
@@ -83,7 +83,7 @@
 		case (window.location.href.match(/\/torrents.php/) || {}).input:
 			for (var i = 0; i < alltorrents.length; i++) {
 				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i].outerHTML)) {
+				if (torrentRegex.exec(alltorrents[i])) {
 					var torrentGroup = RegExp.$1;
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
