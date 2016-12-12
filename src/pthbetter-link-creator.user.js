@@ -25,7 +25,7 @@
 	'use strict';
 
 	var devider = ' | ';
-	var linkregex = /torrents.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=.*/i;
+	var linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z0-9]+))\2(?!&)/i;
 
 	var baseURL = window.location.origin;
 
