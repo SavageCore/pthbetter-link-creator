@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PTH pthbetter Link Creator
 // @namespace    http://savagecore.eu/
-// @version      0.1.12
+// @version      0.1.14
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
@@ -25,7 +25,7 @@
 	'use strict';
 
 	var devider = ' | ';
-	var linkregex = /torrents.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=.*/i;
+	var linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z0-9]+))\2(?!&)/i;
 
 	var baseURL = window.location.origin;
 
