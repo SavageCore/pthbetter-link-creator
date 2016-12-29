@@ -170,6 +170,5 @@
 				str = 'pthbetter ' + allURL;
 		}
 		GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
-		console.log(str);
 	}
 })();
