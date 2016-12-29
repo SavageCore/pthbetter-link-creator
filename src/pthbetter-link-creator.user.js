@@ -65,7 +65,7 @@
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
@@ -78,7 +78,7 @@
 					var torrentGroup = RegExp.$1;
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 				}
 			}
@@ -93,7 +93,7 @@
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
