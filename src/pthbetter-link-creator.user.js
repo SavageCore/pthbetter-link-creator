@@ -34,6 +34,8 @@
 		alltorrents.push(document.links[i]);
 	}
 
+	var allURL = '';
+
 	switch (window.location.href) {
 		case (window.location.href.match(/\/torrents.php\?id/) || {}).input:
 			var query = getQueryParams(document.location.search);
@@ -45,6 +47,7 @@
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
 						createlink(alltorrents[i]);
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
@@ -63,6 +66,7 @@
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
@@ -75,6 +79,7 @@
 					var torrentID = RegExp.$2;
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 				}
 			}
 			break;
@@ -89,6 +94,7 @@
 					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '"]')[0]);
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
@@ -125,6 +131,8 @@
 				str = 'pthbetter ' + url;
 		}
 
+		link.addEventListener('contextmenu', generateAll, false);
+
 		link.addEventListener('click', function () {
 			GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
 			var original = link.firstChild.getAttribute('style');
@@ -147,5 +155,21 @@
 		}
 
 		return params;
+	}
+
+	function generateAll(e) {
+		e.preventDefault();
+		switch (location.hostname) {
+			case 'apollo.rip':
+				var str = 'xanaxbetter ' + allURL;
+				break;
+			case 'passtheheadphones.me':
+				str = 'pthbetter ' + allURL;
+				break;
+			default:
+				str = 'pthbetter ' + allURL;
+		}
+		GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
+		console.log(str);
 	}
 })();
