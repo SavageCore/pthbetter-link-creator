@@ -170,5 +170,10 @@
 				str = 'pthbetter ' + allURL;
 		}
 		GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
+		var original = e.srcElement.getAttribute('style');
+		e.srcElement.setAttribute('style', 'color: #63b708 !important');
+		setTimeout(function () {
+			e.srcElement.setAttribute('style', original);
+		}, 2000);
 	}
 })();
