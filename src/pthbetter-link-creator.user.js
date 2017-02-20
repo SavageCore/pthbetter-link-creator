@@ -5,8 +5,8 @@
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
-// @include    http*://passtheheadphones.me/artist.php*
-// @include    http*://passtheheadphones.me/better.php*
+// @include    http*://redacted.me/artist.php*
+// @include    http*://redacted.me/better.php*
 // @include    http*://passtheheadphones.me/collages.php*
 // @include    http*://passtheheadphones.me/torrents.php*
 
