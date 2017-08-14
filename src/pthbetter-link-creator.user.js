@@ -5,10 +5,10 @@
 // @description  Generate pthbetter command and copy to clipboard
 // @author       SavageCore
 
-// @include    http*://redacted.me/artist.php*
-// @include    http*://redacted.me/better.php*
-// @include    http*://passtheheadphones.me/collages.php*
-// @include    http*://passtheheadphones.me/torrents.php*
+// @include    http*://redacted.ch/artist.php*
+// @include    http*://redacted.ch/better.php*
+// @include    http*://redacted.ch/collages.php*
+// @include    http*://redacted.ch/torrents.php*
 
 // @include    http*://apollo.rip/artist.php*
 // @include    http*://apollo.rip/better.php*
