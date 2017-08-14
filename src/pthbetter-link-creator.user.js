@@ -124,11 +124,11 @@
 			case 'apollo.rip':
 				var str = 'xanaxbetter ' + url;
 				break;
-			case 'passtheheadphones.me':
-				str = 'pthbetter ' + url;
+			case 'redacted.ch':
+				str = 'whatbetter ' + url;
 				break;
 			default:
-				str = 'pthbetter ' + url;
+				str = 'whatbetter ' + url;
 		}
 
 		link.addEventListener('contextmenu', generateAll, false);
@@ -163,11 +163,11 @@
 			case 'apollo.rip':
 				var str = 'xanaxbetter ' + allURL;
 				break;
-			case 'passtheheadphones.me':
-				str = 'pthbetter ' + allURL;
+			case 'redacted.ch':
+				str = 'whatbetter ' + allURL;
 				break;
 			default:
-				str = 'pthbetter ' + allURL;
+				str = 'whatbetter ' + allURL;
 		}
 		GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
 		var original = e.srcElement.getAttribute('style');
