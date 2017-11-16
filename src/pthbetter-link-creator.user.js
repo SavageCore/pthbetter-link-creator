@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         PTH pthbetter Link Creator
+// @name         RED pthbetter Link Creator
 // @namespace    http://savagecore.eu/
 // @version      0.2.19
 // @description  Generate pthbetter command and copy to clipboard
@@ -17,9 +17,11 @@
 
 // @downloadURL	 https://github.com/SavageCore/pthbetter-link-creator/raw/master/src/pthbetter-link-creator.user.js
 // @grant        GM_setClipboard
+// @grant        GM.setClipboard
+// @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // ==/UserScript==
 
-/*	global document, window, GM_setClipboard, location	*/
+/*	global document, window, GM, location	*/
 
 (function () {
 	'use strict';
@@ -133,8 +135,8 @@
 
 		link.addEventListener('contextmenu', generateAll, false);
 
-		link.addEventListener('click', function () {
-			GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
+		link.addEventListener('click', async function () {
+			await GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
 			var original = link.firstChild.getAttribute('style');
 			link.firstChild.setAttribute('style', 'color: #63b708 !important');
 			setTimeout(function () {
@@ -169,7 +171,7 @@
 			default:
 				str = 'whatbetter ' + allURL;
 		}
-		GM_setClipboard(str, 'text'); // eslint-disable-line new-cap
+		GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
 		var original = e.srcElement.getAttribute('style');
 		e.srcElement.setAttribute('style', 'color: #63b708 !important');
 		setTimeout(function () {
