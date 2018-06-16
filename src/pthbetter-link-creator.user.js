@@ -2,7 +2,7 @@
 // @name         RED pthbetter Link Creator
 // @namespace    http://savagecore.eu/
 // @version      0.4.0
-// @description  Generate pthbetter command and copy to clipboard
+// @description  Generate REDBetter-crawler command and copy to clipboard
 // @author       SavageCore
 
 // @include    http*://redacted.ch/artist.php*
@@ -23,30 +23,33 @@
 
 /*	global document, window, GM, location	*/
 
+/* eslint complexity: 0 */
+
 (function () {
 	'use strict';
 
-	var devider = ' | ';
-	var linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z0-9]+))\2(?!&)/i;
+	const devider = ' | ';
+	const linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z0-9]+))\2(?!&)/i;
 
-	var baseURL = window.location.origin;
+	const baseURL = window.location.origin;
 
-	var alltorrents = [];
-	for (var i = 0; i < document.links.length; i++) {
+	const alltorrents = [];
+	for (let i = 0; i < document.links.length; i++) {
 		alltorrents.push(document.links[i]);
 	}
 
-	var allURL = '';
+	let allURL = '';
+	let url;
 
 	switch (window.location.href) {
-		case (window.location.href.match(/\/torrents.php\?id/) || {}).input:
-			var query = getQueryParams(document.location.search);
+		case (window.location.href.match(/\/torrents.php\?id/) || {}).input: {
+			const query = getQueryParams(document.location.search);
 
-			for (var i = 0; i < alltorrents.length; i++) {
+			for (let i = 0; i < alltorrents.length; i++) {
 				if (linkregex.exec(alltorrents[i])) {
-					var torrentGroup = query.id;
-					var torrentID = RegExp.$1;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					const torrentGroup = query.id;
+					const torrentID = RegExp.$1;
+					// Const url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
 						createlink(alltorrents[i]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
@@ -54,18 +57,19 @@
 				}
 			}
 			break;
+		}
 		case (window.location.href.match(/\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
 		case (window.location.href.match(/\?type=uploaded.*?&filter=perfectflac/) || {}).input:
 		case (window.location.href.match(/\?type=seeding/) || {}).input:
 		case (window.location.href.match(/\?type=leeching/) || {}).input:
 		case (window.location.href.match(/\?type=snatched/) || {}).input:
 		case (window.location.href.match(/\?type=uploaded/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			for (let i = 0; i < alltorrents.length; i++) {
+				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					const torrentGroup = RegExp.$1;
+					const torrentID = RegExp.$2;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
@@ -74,12 +78,12 @@
 			}
 			break;
 		case (window.location.href.match(/\/better.php\?method/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			for (let i = 0; i < alltorrents.length; i++) {
+				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					const torrentGroup = RegExp.$1;
+					const torrentID = RegExp.$2;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 				}
@@ -88,12 +92,12 @@
 		case (window.location.href.match(/\/artist.php/) || {}).input:
 		case (window.location.href.match(/\/collages.php\?id/) || {}).input:
 		case (window.location.href.match(/\/torrents.php/) || {}).input:
-			for (var i = 0; i < alltorrents.length; i++) {
-				var torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
+			for (let i = 0; i < alltorrents.length; i++) {
+				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
 				if (torrentRegex.exec(alltorrents[i])) {
-					var torrentGroup = RegExp.$1;
-					var torrentID = RegExp.$2;
-					var url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					const torrentGroup = RegExp.$1;
+					const torrentID = RegExp.$2;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
@@ -106,25 +110,26 @@
 	}
 
 	function createlink(linkelement) {
-		var link = document.createElement('pthB');
+		const link = document.createElement('redB');
 		link.appendChild(document.createElement('a'));
-		link.firstChild.appendChild(document.createTextNode('pthB'));
+		link.firstChild.appendChild(document.createTextNode('redB'));
 		link.appendChild(document.createTextNode(devider));
 		link.firstChild.title = 'Copy pthbetter command to clipboard';
 		linkelement.parentNode.insertBefore(link, linkelement);
 
-		link.onmouseover = function () {
+		link.addEventListener('mouseover', () => {
 			link.firstChild.style['text-decoration'] = 'underline';
 			link.firstChild.style.cursor = 'pointer';
-		};
+		});
 
-		link.onmouseout = function () {
+		link.addEventListener('mouseout', () => {
 			link.firstChild.style['text-decoration'] = 'none';
 			link.firstChild.style.cursor = 'inherit';
-		};
+		});
+		let str;
 		switch (location.hostname) {
 			case 'apollo.rip':
-				var str = 'xanaxbetter ' + url;
+				str = 'xanaxbetter ' + url;
 				break;
 			case 'redacted.ch':
 				str = 'redactedbetter ' + url;
@@ -135,11 +140,11 @@
 
 		link.addEventListener('contextmenu', generateAll, false);
 
-		link.addEventListener('click', async function () {
+		link.addEventListener('click', async () => {
 			await GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
-			var original = link.firstChild.getAttribute('style');
+			const original = link.firstChild.getAttribute('style');
 			link.firstChild.setAttribute('style', 'color: #63b708 !important');
-			setTimeout(function () {
+			setTimeout(() => {
 				link.firstChild.setAttribute('style', original);
 			}, 2000);
 		}, false);
@@ -148,9 +153,9 @@
 	function getQueryParams(qs) {
 		qs = qs.split('+').join(' ');
 
-		var params = {};
-		var tokens;
-		var re = /[?&]?([^=]+)=([^&]*)/g;
+		const params = {};
+		let tokens;
+		const re = /[?&]?([^=]+)=([^&]*)/g;
 
 		while ((tokens = re.exec(qs))) {
 			params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
@@ -161,20 +166,21 @@
 
 	function generateAll(e) {
 		e.preventDefault();
+		let str;
 		switch (location.hostname) {
 			case 'apollo.rip':
-				var str = 'xanaxbetter ' + allURL;
+				str = 'xanaxbetter ' + allURL;
 				break;
 			case 'redacted.ch':
-				str = 'whatbetter ' + allURL;
+				str = 'redactedbetter ' + allURL;
 				break;
 			default:
 				str = 'whatbetter ' + allURL;
 		}
 		GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
-		var original = e.srcElement.getAttribute('style');
+		const original = e.srcElement.getAttribute('style');
 		e.srcElement.setAttribute('style', 'color: #63b708 !important');
-		setTimeout(function () {
+		setTimeout(() => {
 			e.srcElement.setAttribute('style', original);
 		}, 2000);
 	}
