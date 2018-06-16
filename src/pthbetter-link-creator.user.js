@@ -49,9 +49,9 @@
 				if (linkregex.exec(alltorrents[i])) {
 					const torrentGroup = query.id;
 					const torrentID = RegExp.$1;
-					// Const url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
-						createlink(alltorrents[i]);
+						createlink(alltorrents[i], url);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
@@ -71,7 +71,7 @@
 					const torrentID = RegExp.$2;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
@@ -84,7 +84,7 @@
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
+					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
 					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 				}
 			}
@@ -99,7 +99,7 @@
 					const torrentID = RegExp.$2;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0]);
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
@@ -109,7 +109,7 @@
 			break;
 	}
 
-	function createlink(linkelement) {
+	function createlink(linkelement, url) {
 		const link = document.createElement('redB');
 		link.appendChild(document.createElement('a'));
 		link.firstChild.appendChild(document.createTextNode('redB'));
