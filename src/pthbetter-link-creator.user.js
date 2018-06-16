@@ -127,7 +127,7 @@
 				var str = 'xanaxbetter ' + url;
 				break;
 			case 'redacted.ch':
-				str = 'whatbetter ' + url;
+				str = 'redactedbetter ' + url;
 				break;
 			default:
 				str = 'whatbetter ' + url;
