@@ -1,26 +1,26 @@
 {
-  "scripts": {
-    "test": "xo"
-  },
-  "devDependencies": {
-    "xo": "^0.20.3"
-  },
-  "name": "pthbetter-link-creator",
-  "description": "Generate REDBetter-crawler command and copy to clipboard",
-  "version": "0.4.0",
-  "main": "index.js",
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SavageCore/pthbetter-link-creator.git"
-  },
-  "keywords": [
-    "userscript"
-  ],
-  "author": "SavageCore",
-  "license": "Unlicense",
-  "bugs": {
-    "url": "https://github.com/SavageCore/pthbetter-link-creator/issues"
-  },
-  "homepage": "https://github.com/SavageCore/pthbetter-link-creator#readme"
+	"scripts": {
+		"test": "xo"
+	},
+	"devDependencies": {
+		"xo": "^0.20.3"
+	},
+	"name": "pthbetter-link-creator",
+	"description": "Generate REDBetter-crawler command and copy to clipboard",
+	"version": "0.4.1",
+	"main": "index.js",
+	"dependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SavageCore/pthbetter-link-creator.git"
+	},
+	"keywords": [
+		"userscript"
+	],
+	"author": "SavageCore",
+	"license": "Unlicense",
+	"bugs": {
+		"url": "https://github.com/SavageCore/pthbetter-link-creator/issues"
+	},
+	"homepage": "https://github.com/SavageCore/pthbetter-link-creator#readme"
 }

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         RED pthbetter Link Creator
 // @namespace    http://savagecore.eu/
-// @version      0.4.0
+// @version      0.4.1
 // @description  Generate REDBetter-crawler command and copy to clipboard
 // @author       SavageCore
 
