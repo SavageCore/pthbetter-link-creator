@@ -3,7 +3,7 @@
 		"test": "xo"
 	},
 	"devDependencies": {
-		"xo": "^0.21.1"
+		"xo": "^0.22.0"
 	},
 	"name": "pthbetter-link-creator",
 	"description": "Generate REDBetter-crawler command and copy to clipboard",
