@@ -56,8 +56,10 @@
 					}
 				}
 			}
+
 			break;
 		}
+
 		case (window.location.href.match(/\?type=uploaded.*?&filter=uniquegroup/) || {}).input:
 		case (window.location.href.match(/\?type=uploaded.*?&filter=perfectflac/) || {}).input:
 		case (window.location.href.match(/\?type=seeding/) || {}).input:
@@ -76,6 +78,7 @@
 					}
 				}
 			}
+
 			break;
 		case (window.location.href.match(/\/better.php\?method/) || {}).input:
 			for (let i = 0; i < alltorrents.length; i++) {
@@ -88,6 +91,7 @@
 					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 				}
 			}
+
 			break;
 		case (window.location.href.match(/\/artist.php/) || {}).input:
 		case (window.location.href.match(/\/collages.php\?id/) || {}).input:
@@ -104,6 +108,7 @@
 					}
 				}
 			}
+
 			break;
 		default:
 			break;
@@ -111,9 +116,9 @@
 
 	function createlink(linkelement, url) {
 		const link = document.createElement('redB');
-		link.appendChild(document.createElement('a'));
-		link.firstChild.appendChild(document.createTextNode('redB'));
-		link.appendChild(document.createTextNode(devider));
+		link.append(document.createElement('a'));
+		link.firstChild.append(document.createTextNode('redB'));
+		link.append(document.createTextNode(devider));
 		link.firstChild.title = 'Copy pthbetter command to clipboard';
 		linkelement.parentNode.insertBefore(link, linkelement);
 
@@ -141,7 +146,7 @@
 		link.addEventListener('contextmenu', generateAll, false);
 
 		link.addEventListener('click', async () => {
-			await GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
+			await GM.setClipboard(str, 'text');
 			const original = link.firstChild.getAttribute('style');
 			link.firstChild.setAttribute('style', 'color: #63b708 !important');
 			setTimeout(() => {
@@ -177,7 +182,8 @@
 			default:
 				str = 'whatbetter ' + allURL;
 		}
-		GM.setClipboard(str, 'text'); // eslint-disable-line new-cap
+
+		GM.setClipboard(str, 'text');
 		const original = e.srcElement.getAttribute('style');
 		e.srcElement.setAttribute('style', 'color: #63b708 !important');
 		setTimeout(() => {
