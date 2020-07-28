@@ -73,8 +73,8 @@
 					const torrentID = RegExp.$2;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
 					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
-						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
@@ -86,9 +86,9 @@
 				if (torrentRegex.exec(alltorrents[i])) {
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
-					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
-					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID;
+					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
+					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
 				}
 			}
 
@@ -101,10 +101,10 @@
 				if (torrentRegex.exec(alltorrents[i])) {
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
-					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID;
 					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
-						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]', url)[0]);
-						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
+						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
