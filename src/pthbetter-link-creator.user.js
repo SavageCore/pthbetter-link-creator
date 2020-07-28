@@ -29,7 +29,7 @@
 	'use strict';
 
 	const devider = ' | ';
-	const linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z0-9]+))\2(?!&)/i;
+	const linkregex = /torrents\.php\?action=download.*?id=(\d+).*?authkey=.*?torrent_pass=(?=([a-z\d]+))\2(?!&)/i;
 
 	const baseURL = window.location.origin;
 
@@ -43,15 +43,15 @@
 
 	switch (window.location.href) {
 		case (window.location.href.match(/\/torrents.php\?id/) || {}).input: {
-			const query = getQueryParams(document.location.search);
+			const query = getQueryParameters(document.location.search);
 
-			for (let i = 0; i < alltorrents.length; i++) {
-				if (linkregex.exec(alltorrents[i])) {
+			for (const torrent of alltorrents) {
+				if (linkregex.exec(torrent)) {
 					const torrentGroup = query.id;
 					const torrentID = RegExp.$1;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].innerText.indexOf('Lossless') !== -1) {
-						createlink(alltorrents[i], url);
+					if (document.querySelectorAll('[onclick^="$(\'#torrent_' + RegExp.$1 + '\')"]')[0].textContent.includes('Lossless')) {
+						createlink(torrent, url);
 						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID + ' ';
 					}
 				}
@@ -66,29 +66,29 @@
 		case (window.location.href.match(/\?type=leeching/) || {}).input:
 		case (window.location.href.match(/\?type=snatched/) || {}).input:
 		case (window.location.href.match(/\?type=uploaded/) || {}).input:
-			for (let i = 0; i < alltorrents.length; i++) {
+			for (const torrent of alltorrents) {
 				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
+				if (torrentRegex.exec(torrent)) {
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
 					url = baseURL + '/torrents.php?id=' + torrentGroup + '\\&torrentid=' + torrentID;
-					if (alltorrents[i].nextSibling.nodeValue.indexOf('Lossless') !== -1) {
+					if (torrent.nextSibling.nodeValue.includes('Lossless')) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
-						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
 
 			break;
 		case (window.location.href.match(/\/better.php\?method/) || {}).input:
-			for (let i = 0; i < alltorrents.length; i++) {
+			for (const torrent of alltorrents) {
 				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
+				if (torrentRegex.exec(torrent)) {
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
-					url = baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID;
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '&torrentid=' + torrentID;
 					createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
-					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
+					allURL += baseURL + '/torrents.php?id=' + torrentGroup + '&torrentid=' + torrentID + ' ';
 				}
 			}
 
@@ -96,15 +96,15 @@
 		case (window.location.href.match(/\/artist.php/) || {}).input:
 		case (window.location.href.match(/\/collages.php\?id/) || {}).input:
 		case (window.location.href.match(/\/torrents.php/) || {}).input:
-			for (let i = 0; i < alltorrents.length; i++) {
+			for (const torrent of alltorrents) {
 				const torrentRegex = /torrents.php\?id=(\d+)&torrentid=(\d+)/;
-				if (torrentRegex.exec(alltorrents[i])) {
+				if (torrentRegex.exec(torrent)) {
 					const torrentGroup = RegExp.$1;
 					const torrentID = RegExp.$2;
-					url = baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID;
-					if (alltorrents[i].innerText.indexOf('Lossless') !== -1) {
+					url = baseURL + '/torrents.php?id=' + torrentGroup + '&torrentid=' + torrentID;
+					if (torrent.textContent.includes('Lossless')) {
 						createlink(document.querySelectorAll('[href^="torrents.php?action=download&id=' + torrentID + '&"]')[0], url);
-						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '\&torrentid=' + torrentID + ' ';
+						allURL += baseURL + '/torrents.php?id=' + torrentGroup + '&torrentid=' + torrentID + ' ';
 					}
 				}
 			}
@@ -131,22 +131,22 @@
 			link.firstChild.style['text-decoration'] = 'none';
 			link.firstChild.style.cursor = 'inherit';
 		});
-		let str;
+		let string;
 		switch (location.hostname) {
 			case 'apollo.rip':
-				str = 'xanaxbetter ' + url;
+				string = 'xanaxbetter ' + url;
 				break;
 			case 'redacted.ch':
-				str = 'redactedbetter ' + url;
+				string = 'redactedbetter ' + url;
 				break;
 			default:
-				str = 'whatbetter ' + url;
+				string = 'whatbetter ' + url;
 		}
 
 		link.addEventListener('contextmenu', generateAll, false);
 
 		link.addEventListener('click', async () => {
-			await GM.setClipboard(str, 'text');
+			await GM.setClipboard(string, 'text');
 			const original = link.firstChild.getAttribute('style');
 			link.firstChild.setAttribute('style', 'color: #63b708 !important');
 			setTimeout(() => {
@@ -155,39 +155,39 @@
 		}, false);
 	}
 
-	function getQueryParams(qs) {
+	function getQueryParameters(qs) {
 		qs = qs.split('+').join(' ');
 
-		const params = {};
+		const parameters = {};
 		let tokens;
 		const re = /[?&]?([^=]+)=([^&]*)/g;
 
 		while ((tokens = re.exec(qs))) {
-			params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+			parameters[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
 		}
 
-		return params;
+		return parameters;
 	}
 
-	function generateAll(e) {
-		e.preventDefault();
-		let str;
+	function generateAll(event) {
+		event.preventDefault();
+		let string;
 		switch (location.hostname) {
 			case 'apollo.rip':
-				str = 'xanaxbetter ' + allURL;
+				string = 'xanaxbetter ' + allURL;
 				break;
 			case 'redacted.ch':
-				str = 'redactedbetter ' + allURL;
+				string = 'redactedbetter ' + allURL;
 				break;
 			default:
-				str = 'whatbetter ' + allURL;
+				string = 'whatbetter ' + allURL;
 		}
 
-		GM.setClipboard(str, 'text');
-		const original = e.srcElement.getAttribute('style');
-		e.srcElement.setAttribute('style', 'color: #63b708 !important');
+		GM.setClipboard(string, 'text');
+		const original = event.srcElement.getAttribute('style');
+		event.srcElement.setAttribute('style', 'color: #63b708 !important');
 		setTimeout(() => {
-			e.srcElement.setAttribute('style', original);
+			event.srcElement.setAttribute('style', original);
 		}, 2000);
 	}
 })();
